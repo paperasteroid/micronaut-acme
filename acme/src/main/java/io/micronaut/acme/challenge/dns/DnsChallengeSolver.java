@@ -24,14 +24,14 @@ import io.micronaut.context.annotation.DefaultImplementation;
 @DefaultImplementation(RenderedTextDnsChallengeSolver.class)
 public interface DnsChallengeSolver {
     /**
-     * Creates the TXT record for _acme-challenge.*domain*
-     * with a value of digest to verify the domain.
+     * Creates the TXT record for `_acme-challenge.<i>domain</i>`
+     * with a value of <i>digest</i> to verify the domain.
      *
      * <p>This method should block and only return once the TXT record has been
-     * created, however {@see AcmeConfiguration} `pause` setting can also be
+     * created, however {@see io.micronaut.acme.AcmeConfiguration} `pause` setting can also be
      * used to provide time for propagation.</p>
      *
-     * @param domain    The domain to create the record for, excluding the `_acme-challenge` prefix
+     * @param domain    The domain to create the record for, excluding the `_acme-challenge` key
      * @param digest    The value to set the TXT record to for the challenge to succeed
      */
     void createRecord(String domain, String digest);
@@ -41,7 +41,7 @@ public interface DnsChallengeSolver {
      *
      * <p>This method is called even if the challenge failed, so it is possible the record may not exist.</p>
      *
-     * @param domain    The domain to remove the record for, excluding the `_acme-challenge` prefix
+     * @param domain    The domain to remove the record for, excluding the `_acme-challenge` key
      */
     void destroyRecord(String domain);
 }
