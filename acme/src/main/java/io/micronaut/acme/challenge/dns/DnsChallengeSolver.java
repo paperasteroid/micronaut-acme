@@ -18,11 +18,11 @@ package io.micronaut.acme.challenge.dns;
 import io.micronaut.context.annotation.DefaultImplementation;
 
 /**
- * Represents a resolver for the DNS challenge that can create and destroy
+ * Represents a solver for the DNS challenge that can create and destroy
  * DNS records.
  */
-@DefaultImplementation(RenderedTextDnsChallengeResolver.class)
-public interface DnsChallengeResolver {
+@DefaultImplementation(RenderedTextDnsChallengeSolver.class)
+public interface DnsChallengeSolver {
     /**
      * Creates the TXT record for _acme-challenge.*domain*
      * with a value of digest to verify the domain.

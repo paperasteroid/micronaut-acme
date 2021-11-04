@@ -1,7 +1,7 @@
 package io.micronaut.acme.challenges
 
 import io.micronaut.acme.AcmeBaseSpec
-import io.micronaut.acme.challenge.dns.DnsChallengeResolver
+import io.micronaut.acme.challenge.dns.DnsChallengeSolver
 import io.micronaut.context.annotation.Replaces
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
@@ -103,8 +103,8 @@ class AcmeCertRefresherTaskDns01ChallengeSpec extends AcmeBaseSpec {
     }
 
     @Singleton
-    @Replaces(DnsChallengeResolver)
-    class TestDnsChallengeSolver implements DnsChallengeResolver {
+    @Replaces(DnsChallengeSolver)
+    class TestDnsChallengeSolver implements DnsChallengeSolver {
         static Map<String, String> createdRecords = [:]
         static List<String> purgedRecords = []
 

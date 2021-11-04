@@ -23,9 +23,9 @@ import org.slf4j.LoggerFactory;
  * Default DNS challenge solver which simply prints instructions to STDOUT to manually create a record.
  */
 @Singleton
-class RenderedTextDnsChallengeResolver implements DnsChallengeResolver {
+class RenderedTextDnsChallengeSolver implements DnsChallengeSolver {
     private static final String TXT_RECORD_NAME = "_acme-challenge";
-    private static final Logger LOG = LoggerFactory.getLogger(RenderedTextDnsChallengeResolver.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RenderedTextDnsChallengeSolver.class);
 
     @Override
     public void createRecord(String domain, String digest) {

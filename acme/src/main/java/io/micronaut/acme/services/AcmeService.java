@@ -16,7 +16,7 @@
 package io.micronaut.acme.services;
 
 import io.micronaut.acme.AcmeConfiguration;
-import io.micronaut.acme.challenge.dns.DnsChallengeResolver;
+import io.micronaut.acme.challenge.dns.DnsChallengeSolver;
 import io.micronaut.acme.challenge.http.endpoint.HttpChallengeDetails;
 import io.micronaut.acme.events.CertificateEvent;
 import io.micronaut.context.event.ApplicationEventPublisher;
@@ -88,7 +88,7 @@ public class AcmeService {
     private final Duration authPause;
     private final Duration orderPause;
     private final Duration timeout;
-    private final DnsChallengeResolver dnsChallengeResolver;
+    private final DnsChallengeSolver dnsChallengeSolver;
 
     private ApplicationEventPublisher eventPublisher;
 
@@ -99,13 +99,13 @@ public class AcmeService {
      * @param resourceResolver  Resource resolver for finding keys from classpath or disk
      * @param acmeConfiguration Acme Configuration
      * @param taskScheduler     Task scheduler for enabling background polling of the certificate refreshes
-     * @param dnsChallengeResolver  DNS Challenge Resolver for setting up a DNS challenge
+     * @param dnsChallengeSolver  DNS Challenge Resolver for setting up a DNS challenge
      */
     public AcmeService(ApplicationEventPublisher eventPublisher,
                        AcmeConfiguration acmeConfiguration,
                        ResourceResolver resourceResolver,
                        @Named("scheduled") TaskScheduler taskScheduler,
-                       DnsChallengeResolver dnsChallengeResolver) {
+                       DnsChallengeSolver dnsChallengeSolver) {
         this.eventPublisher = eventPublisher;
         this.timeout = acmeConfiguration.getTimeout();
         this.orderPause = acmeConfiguration.getOrder().getPause();
@@ -117,7 +117,7 @@ public class AcmeService {
         this.acmeConfiguration = acmeConfiguration;
         this.resourceResolver = resourceResolver;
         this.taskScheduler = taskScheduler;
-        this.dnsChallengeResolver = dnsChallengeResolver;
+        this.dnsChallengeSolver = dnsChallengeSolver;
     }
 
     /**
@@ -447,7 +447,7 @@ public class AcmeService {
             String digest = dns01Challenge.getDigest();
             String domain = auth.getIdentifier().getDomain();
 
-            dnsChallengeResolver.createRecord(domain, digest);
+            dnsChallengeSolver.createRecord(domain, digest);
         }
     }
 
@@ -459,7 +459,7 @@ public class AcmeService {
 
             String domain = auth.getIdentifier().getDomain();
 
-            dnsChallengeResolver.destroyRecord(domain);
+            dnsChallengeSolver.destroyRecord(domain);
         }
     }
 
