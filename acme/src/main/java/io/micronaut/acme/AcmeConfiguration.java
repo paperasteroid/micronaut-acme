@@ -110,7 +110,7 @@ public class AcmeConfiguration implements Toggleable {
     }
 
     /**
-     * Get the duration in which you would like to renew the certificate within. Default {@value #DEFAULT_RENEW_WITHIN}.
+     * Get the duration in which you would like to renew the certificate within. Default {@link #DEFAULT_RENEW_WITHIN}.
      * @return the renew within duration
      */
     @NonNull
@@ -238,7 +238,7 @@ public class AcmeConfiguration implements Toggleable {
     }
 
     /**
-     * Get the challenge type to be used to validate the account. Default {@value #DEFAULT_CHALLENGE_TYPE}.
+     * Get the challenge type to be used to validate the account. Default {@link #DEFAULT_CHALLENGE_TYPE}.
      * @return the challenge type
      */
     public ChallengeType getChallengeType() {
@@ -328,7 +328,7 @@ public class AcmeConfiguration implements Toggleable {
         }
 
         /**
-         * Sets duration in which we will pause between ordering attempts. Default {@value #DEFAULT_PAUSE_DURATION}.
+         * Sets duration in which we will pause between ordering attempts. Default {@link #DEFAULT_PAUSE_DURATION}.
          *
          * @param pause duration
          */
@@ -373,7 +373,7 @@ public class AcmeConfiguration implements Toggleable {
         }
 
         /**
-         * Sets duration in which we will pause between authentication attempts. Default {@value #DEFAULT_PAUSE_DURATION}.
+         * Sets duration in which we will pause between authentication attempts. Default {@link #DEFAULT_PAUSE_DURATION}.
          *
          * @param pause duration
          */

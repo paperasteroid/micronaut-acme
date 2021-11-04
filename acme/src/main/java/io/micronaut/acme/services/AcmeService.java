@@ -99,6 +99,7 @@ public class AcmeService {
      * @param resourceResolver  Resource resolver for finding keys from classpath or disk
      * @param acmeConfiguration Acme Configuration
      * @param taskScheduler     Task scheduler for enabling background polling of the certificate refreshes
+     * @param dnsChallengeResolver  DNS Challenge Resolver for setting up a DNS challenge
      */
     public AcmeService(ApplicationEventPublisher eventPublisher,
                        AcmeConfiguration acmeConfiguration,
