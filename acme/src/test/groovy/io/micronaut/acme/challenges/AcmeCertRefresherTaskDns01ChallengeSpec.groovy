@@ -9,6 +9,7 @@ import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory
 import io.reactivex.Flowable
+import jakarta.inject.Singleton
 import spock.lang.Stepwise
 import spock.util.concurrent.PollingConditions
 
@@ -48,12 +49,13 @@ class AcmeCertRefresherTaskDns01ChallengeSpec extends AcmeBaseSpec {
     def "expect record to be created and match domain"() {
         expect:
         TestDnsChallengeSolver.createdRecords.size() == 1
-        TestDnsChallengeSolver.createdRecords.containsKey(EXPECTED_DOMAIN)
+        TestDnsChallengeSolver.createdRecords.containsKey(EXPECTED_ACME_DOMAIN)
+        TestDnsChallengeSolver.createdRecords[EXPECTED_ACME_DOMAIN].length() > 1
     }
 
     def "expect record to be destroyed and match domain"() {
         expect:
-        TestDnsChallengeSolver.purgedRecords == [EXPECTED_DOMAIN]
+        TestDnsChallengeSolver.purgedRecords == [EXPECTED_ACME_DOMAIN]
     }
 
     void "expect the url to be https"() {
@@ -103,8 +105,8 @@ class AcmeCertRefresherTaskDns01ChallengeSpec extends AcmeBaseSpec {
     }
 
     @Singleton
-    @Replaces(DnsChallengeSolver)
-    class TestDnsChallengeSolver implements DnsChallengeSolver {
+    @Replaces(DnsChallengeSolver.class)
+    static class TestDnsChallengeSolver implements DnsChallengeSolver {
         static Map<String, String> createdRecords = [:]
         static List<String> purgedRecords = []
 
