@@ -10,6 +10,8 @@ import io.micronaut.http.annotation.Get
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory
 import io.reactivex.Flowable
 import jakarta.inject.Singleton
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import spock.lang.Stepwise
 import spock.util.concurrent.PollingConditions
 
@@ -109,14 +111,17 @@ class AcmeCertRefresherTaskDns01ChallengeSpec extends AcmeBaseSpec {
     static class TestDnsChallengeSolver implements DnsChallengeSolver {
         static Map<String, String> createdRecords = [:]
         static List<String> purgedRecords = []
+        static Logger LOG = LoggerFactory.getLogger(TestDnsChallengeSolver.class)
 
         @Override
         void createRecord(String domain, String digest) {
+            LOG.debug("Creating TXT record for {} with value of {}", domain, digest)
             createdRecords.put(domain, digest)
         }
 
         @Override
         void destroyRecord(String domain) {
+            LOG.debug("Destroying TXT record for {}", domain)
             purgedRecords.add(domain)
         }
     }
