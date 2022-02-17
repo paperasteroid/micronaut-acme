@@ -1,5 +1,7 @@
 plugins {
     id "io.micronaut.build.internal.module"
+    id "java"
+    id "maven-publish"
 }
 
 configurations {
@@ -41,4 +43,17 @@ dependencies {
 
 groovydoc {
     classpath += project.configurations.documentation
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "Github"
+            url = "https://maven.pkg.github.com/paperasteroid/micronaut-acme"
+            credentials {
+                username = System.getenv("MAVEN_USERNAME")
+                password = System.getenv("MAVEN_PASSWORD")
+            }
+        }
+    }
 }
