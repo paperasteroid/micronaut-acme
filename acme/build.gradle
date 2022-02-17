@@ -51,7 +51,7 @@ publishing {
             name = "Github"
             url = "https://maven.pkg.github.com/paperasteroid/micronaut-acme"
             credentials {
-                username = System.getenv("MAVEN_USERNAME")
+                username = System.getenv("GITHUB_ACTOR")
                 password = System.getenv("MAVEN_PASSWORD")
             }
         }
