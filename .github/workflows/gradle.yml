@@ -63,15 +63,12 @@ jobs:
         with:
           check_name: Java CI / Test Report (${{ matrix.java }})
           report_paths: '**/build/test-results/test/TEST-*.xml'
-      - name: Publish to Sonatype Snapshots
+      - name: Publish to Github Snapshots
         if: success() && matrix.java == '8'
-#        env:
-#          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-#          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-#          GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
-#          GRADLE_ENTERPRISE_CACHE_USERNAME: ${{ secrets.GRADLE_ENTERPRISE_CACHE_USERNAME }}
-#          GRADLE_ENTERPRISE_CACHE_PASSWORD: ${{ secrets.GRADLE_ENTERPRISE_CACHE_PASSWORD }}
-        run: ./gradlew -Dio.micronaut.publishing.uri=https://maven.pkg.github.com/paperasteroid/micronaut-acme -Dio.micronaut.publishing.username=${GITHUB_ACTOR} -Dio.micronaut.publishing.password=${GITHUB_TOKEN} publishToSonatype docs --no-daemon
+        env:
+          MAVEN_USERNAME: ${{ secrets.GITHUB_TOKEN }}
+          MAVEN_PASSWORD: ${{ secrets.GITHUB_ACTOR }}
+        run: ./gradlew publish docs --no-daemon
       - name: Determine docs target repository
         uses: haya14busa/action-cond@v1
         id: docs_target
