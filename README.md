@@ -44,5 +44,3 @@ A release is performed with the following steps:
 1. Checkout from Github (e.g. `git clone git@github.com:micronaut/micronaut-acme.git`)
 2. `cd micronaut-acme`
 3. `./gradlew build`
-
-
